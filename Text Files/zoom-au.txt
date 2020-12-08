@@ -1,0 +1,46 @@
+Acceptable Use Policy
+Acceptable Use Policy
+
+Effective July 6, 2020
+
+This Acceptable Use Policy (the “Policy”) governs all uses of Zoom Services and supplements any Master Service Agreement, Terms of Service, End User License Agreement or other contracting document for the provision and use of Zoom Services (the “Services Agreement”).  Capitalized terms not defined herein have the meaning set forth in the Services Agreement.  This Policy defines the standards Zooms expects its Customers and End Users to adhere to while using the Services.
+
+Zoom Services are designed to promote collaboration and effective working and business relationships by connecting users through voice, video and screen-sharing capabilities.  As such, Zoom Services are intended for business use and purposes.
+
+Customers and End Users may not use the Services to:
+
+Post, stream or transmit any content, including live video, that violates this Policy
+Do anything illegal, facilitate any illegal activity, or promote violence.
+Do anything that threatens, exploits or otherwise harms children.
+Engage in any activity that is harmful, obscene, or indecent (particularly as such would be understood in the context of business usage). This includes, for example, displays of nudity, violence, pornography, sexually explicit material, or criminal activity.
+Facilitate or support human trafficking.
+Engage in any activity that supports or facilitates terrorism or terrorist organizations
+Engage in any activity that is fraudulent, false, or misleading.
+Engage in any activity that is defamatory, harassing, threatening or abusive, which includes any activity that reflects hatred against others based on race, religion, ethnicity, national origin, gender, or sexual orientation.
+Store or transmit any data or material that is fraudulent, unlawful, harassing, libelous, threatening, obscene, indecent or otherwise inappropriate.
+Send unauthorized messages, advertising or spam, including unsolicited promotional or commercial content or other mass solicitation material.
+Misrepresent the User’s identity or affiliation with any entity or organization, or impersonate any other person.
+Harvest, collect, or gather user data without consent.
+Violate or infringe any intellectual property or proprietary rights of others, including copyrights.
+Violate the privacy of others or distribute confidential or personal information of others.
+Engage in any activity that is harmful or disruptive to the Services or attempts to circumvent restrictions on access, usage or security of the Services. This includes transmitting viruses, malware or other malicious or destructive code or using tools that mask IP address location or to otherwise circumventing restrictions on use due to regulations or account closures.
+If you become aware of any violation of this Policy, please contact Zoom at trust@zoom.us. Zoom will investigate all reports and take immediate, appropriate action where warranted (in Zoom’s sole discretion).  If a Customer or End User violates any of the terms of this Acceptable Use Policy, Zoom may immediately terminate the Customer’s account, suspend or terminate access or take any other appropriate action, including legal action if warranted.
+
+ 
+
+Reasonable Use
+
+Zoom provides video conferencing services for business collaboration.  Zoom anticipates that customers will use the services in a reasonable manner given the business purpose.  As such, Zoom may limit, suspend or terminate access if an End User’s use exceeds reasonable standards, and may monitor usage based on 
+
+meeting lengths;
+uninterrupted meeting recordings;
+excessive recorded meeting length;
+calls made outside of business hours;
+other calling patterns indicative of an attempt to evade enforcement of Reasonable Use
+Zoom may determine that abnormal, unreasonable or impermissible usage is occurring based on industry standards and patterns of usage of the Services, and may take appropriate steps, including suspension or termination of service.  Zoom may first contact the Customer and discuss appropriate usage and suitable plans to support valid use of the Services.
+
+In addition, unlimited recording plans cannot, under any circumstances, be used for security systems.
+
+Unlimited Calling Plans
+
+Zoom offers “unlimited” audio calling plans (that operate with video conferencing services), and Zoom Voice offers unlimited and metered Voice Calling Plans (“the Calling Plans”).  These plans are subject to this Reasonable Use Policy.  The Calling Plans are for normal and reasonable business use; unreasonable use is prohibited.  Use of the Calling Plans may qualify as unreasonable if Customer (a) engages in business activities that involve continual, uninterrupted, or consistently excessive use, (b) makes any misrepresentations to Zoom that materially affect volume or type of use, (c) engages in fraudulent or illegal use, including any activity that violates telemarketing laws or regulations, or (d) uses Zoom in any manner that harms Zoom’s network or facilities or interferes with the use of the service by other Customers. Use that is inconsistent with the types and levels of usage by typical business customers on the same plan may be used as an indicator of abnormal or unreasonable use, including but not limited to abnormal call lengths, frequency, duration, or calling patterns that indicate an attempt to evade enforcement of this Reasonable Use Policy.  Zoom reserves the right to review Customer use to determine if it is consistent with this Reasonable Use Policy.  In the event Zoom determines that Customer may be engaging in unreasonable use, Zoom will determine the appropriate remedy and will take action to remedy any unreasonable use, including, at its sole discretion, discussing the use with the Customer, moving the Customer to an appropriate Calling Plan, terminating certain Hosts, and/or otherwise modifying, suspending or terminating Customer’s Zoom services
