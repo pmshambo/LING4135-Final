@@ -1,0 +1,256 @@
+'''
+For the purposes of the automatic search, there are two lists of terms: one for privacy policies and
+another for terms of service. "Privacy policy" also encompasses documents such as "data policy", "cookies policy" [MAYBE]
+and documents with similar titles. "Terms of Service" may also refer to "user agreement", "acceptable use", and others.
+'''
+
+def main():
+    import nltk
+    from nltk.corpus import PlaintextCorpusReader as ptcr
+    from nltk.tokenize import word_tokenize
+    from nltk.corpus import stopwords
+    from nltk.probability import FreqDist                   # import inside or outside of main() ?
+    import string                                           # or as needed in functions?
+
+    # nltk.download('stopwords')
+    # nltk.download('punkt')
+
+    global files
+    corpus_root = 'C:/Users/Patrick/Desktop/UNT Work/Fall 20/LING 4135/Project/ToS_files/Text Files/'   # MUST be changed for submission
+    ToS = ptcr(corpus_root, '.*')
+    files = ToS.fileids()
+    
+    def exit_key(e_key, setKey='000999'):       # allows user to exit input prompt. Defaults to '000999'
+        # setKey = '000999'                     # if user inputs setKey string, program will exit with code 999
+        if e_key == setKey:                     # More useful for development purposes, but I like to keep it in
+            print("SEARCH TERMINATED")  # Necessary? Too much?
+            exit(999)
+        else:
+            pass
+
+    def search(text,mode="auto"):   # Parameters: text (fileid) to be searched and mode of search. Default search mode is "auto"
+        global sents, paras, words, count, raw, ptext
+        count = 1
+        raw = ToS.raw(text)
+        words = ToS.words(text)
+        sents = ToS.sents(text)
+        paras = ToS.paras(text)
+        positions = {}
+        print(text)         ## DO THESE IN PRESENTATION FUNCTION
+
+        def search_auto():
+            pp_list = ['privacy', 'protect', 'personal', 'data', 'secure', 'collect', 'sell', 'pay', 'safe', 'information','right','rights']
+            ts_list = ['use', 'terms', 'allowed', 'prohibit', 'acceptable', 'safe', 'govern', 'forbidden', 'agree','right','rights']
+            docCat = catDoc()   # Document category. bool (pp, ts)
+            results = []
+            if docCat[0] is True: # is privacy policy
+                results.append(("Privacy Policy",getResAuto(pp_list)))
+
+            if docCat[1] is True: # is terms of service
+                results.append(("Terms of Service",getResAuto(ts_list)))
+
+            return results
+
+
+        def search_man(useInput=True,term='None'):
+            global count, inpt_key              # global inpt_key ?
+            if useInput == True:
+                inpt_key = input("Enter Keyword to Search: ")
+                exit_key(inpt_key)      # exit key is default: '000999'
+            elif useInput == False:
+                inpt_key = term
+            s_results = []
+            for k in range(len(sents)):
+                if inpt_key in sents[k]:
+                    positions[count] = k
+                    count += 1
+                    temp_sent = sents[k]
+                    for i in range(len(temp_sent)):
+                        if temp_sent[i] == inpt_key:
+                            temp_sent[i] = temp_sent[i].upper()
+                    s_results.append(temp_sent)
+
+            return s_results
+
+        def catDoc():           ## Categorizes given document as a privacy policy, terms of service agreement or both.
+            ppCheck = False     ## Used to decide which terms to use in automatic search
+            tsCheck = False
+            header = words[:10]
+            pp = ('privacy','data','cookies')
+            ts = ('terms','service','user','agreement','acceptable')
+            for w in header:
+                if w.lower() in pp:     # Efficiency?
+                    ppCheck = True
+                if w.lower() in ts:
+                    tsCheck = True
+
+            return [ppCheck, tsCheck]   ## Returns list with two boolean values: [is this a privacy policy?, is this a user agreement?] [T/F, T/F]
+
+        def getResAuto(searchlist):     # gets results for automatic search
+            resList = []
+            for term in searchlist:
+                resList.append(term)
+                resList.append(search_man(False,term))
+
+            return resList
+
+        def prepText():  # Preprocesses raw text. Output list of normalized words, no stopwords, punctuation or unwanted
+            eng_stopwords = stopwords.words('english')
+            removed_words_list = ['use', 'like', 'We', 'may', 'example', 'For', '°', 'Google', 'also', 'Twitter', '’',
+                                  'You',
+                                  'us', 'e', "'s", "'t"]                                # words can be added or taken out
+            removed_words_list = [word.lower() for word in removed_words_list]
+            tokens = [t.lower() for t in word_tokenize(raw)]
+            finPrep = [word for word in tokens if
+                       word not in removed_words_list and word not in string.punctuation and word
+                       not in eng_stopwords]
+            return finPrep
+
+        ptext = prepText()
+
+        mode = mode.strip().lower()
+        if mode == "man":
+            print("SEARCH MODE: MANUAL")
+            results = search_man()
+        else:
+            print("SEARCH MODE: AUTO")
+            results = search_auto()
+
+        return results, positions
+
+    def findFreq():                                 # Finds 10 most common words in the text
+        fdist_text = FreqDist(ptext)
+        top_words = fdist_text.most_common(10)
+        return top_words
+
+    def countWord(term):                            # counts number of occurrences of a single word in the text
+        total = words.count(term) + words.count(term.lower()) + words.count(term.upper())
+        return total
+
+    def lisToPlain(wordList):   # Converts list of words to string
+        newStr = ''
+        for word in wordList:   # messy! fix this! (nltk / spacy ?)
+            newStr += word
+            newStr += ' '
+        return newStr
+
+    def printResAuto(results):          # Prints results from auto search
+        for k in range(len(results)):
+            newRes = results[k]
+            print('\n',newRes[0],'Search Results:')
+            count = 1
+            for i in range(len(newRes[1])):
+                if i % 2 == 0:
+                    print('\n\n',newRes[1][i].upper(),'\n')
+                else:
+                    temp = newRes[1][i]
+                    if len(temp) == 0:
+                        print("No Result Found.")
+                    else:
+                        for lis in temp:
+                            print(count,' - ',end=" ")
+                            count += 1
+                            print(lisToPlain(lis))
+                    print("\nThe word "+newRes[1][i-1].upper()+" occurs ",countWord(newRes[1][i-1])," times in ",len(words)," words.")
+
+    def printResMan(results):       # Prints results from manual search
+        count = 1
+        for result in results:
+            print(count, ' - ', end=" ")
+            count += 1
+            print(lisToPlain(result))
+        print("\nThe word "+inpt_key.upper()+" occurs ", countWord(inpt_key)," times in ",len(words)," words.")
+
+    def printManAuto(results):          # Determines whether the results are from auto search or manual search.
+        if len(results) == 0:           # The data structures are different for each type of result, so they have to be
+            print("No Result Found.")   # handled differently.
+            exit(888)
+        else:
+            if type(results[0]) == tuple:           # Rough
+                printResAuto(results)
+            else:
+                printResMan(results)
+        print("\nTen most common words in this document and their counts: ")
+        for word in findFreq():                     # Rough
+            if len(str(word[1])) == 1:
+                print(word[1],'   -  ',word[0])
+            elif len(str(word[1])) == 2:
+                print(word[1], '  -  ', word[0])
+            elif len(str(word[1])) == 3:
+                print(word[1], ' -  ', word[0])
+            else:
+                print(word[1], ' -  ', word[0])
+
+
+    def extra_info():
+        print()
+        print('----------------------------------------------------------------------')
+        chooseNum = input("For more information about a sentence, enter the number of a line (type 'exit' to exit): ")
+        exit_key(chooseNum, 'exit')
+        print('----------------------------------------------------------------------')
+        chooseNum = int(chooseNum)  # add exception for TypeError
+
+        def findPos():
+            sent = sents[locations[chooseNum]]      # add exception for KeyError
+            print("Sentence number: ", locations[chooseNum],"out of",len(sents))    # Starts at zero ?
+            print()
+            print(lisToPlain(sent))
+            print()
+
+            def findPara():
+                for para in paras:
+                    if sent in para:
+                        print("Paragraph number: ",paras.index(para),"out of",len(paras))
+                        print("Sentence number: ",para.index(sent)+1,"out of",len(para))
+                        print()
+                        count = 1
+                        for p in para:
+                            if p == sent:
+                                for i in range(len(p)):
+                                    p[i] = p[i].upper()
+                            print(count,' - ', end=" ")
+                            count += 1
+                            print(lisToPlain(p))
+
+            def findEnts():
+                pass
+
+            def makeLemma():        # When life gives you lemmas...
+                pass
+
+            findPara()
+        findPos()
+
+    def runAll():
+        global locations
+        count = 1
+        for f in files:
+            print(count,' - ',end=" ")
+            count += 1
+            print(f)
+        print('-----------------------')
+        whichText = input("Choose a text by number: ")
+        exit_key(whichText)
+        whichMode = input('Choose a mode ("auto"/"man"): ')
+        exit_key(whichMode)
+        print('-----------------------')
+        whichText = int(whichText)
+        allResults = search(files[whichText-1], whichMode)
+        results = allResults[0]
+        locations = allResults[1]
+        printManAuto(results)
+        extra_info()
+        print('-----------------------')
+        again = input("Search again? (yes/no) ")
+        print('-----------------------')
+        exit_key(again)
+        if again == 'no':
+            print("Search Ended.")
+            exit(777)
+        else:
+            runAll()
+
+    runAll()
+
+if __name__ == "__main__":      # Is this necessary? or just main() ?
+    main()
